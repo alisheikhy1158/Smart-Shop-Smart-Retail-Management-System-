@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SmartShop Inventory</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+            background-color: #f5f5f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .main-screen {
+            margin-top: 5px;
+            background-color: #dcdcdc;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .container {
+            width: 80%;
+            max-width: 1200px;
+            border: 3px solid #302f2f;
+            padding: 10px 20px;
+            background-color: #ffffff;
+            border-radius: 10px;
+            margin-top: 170px;
+        }
+
+        .top-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background-color: #5c5454;
+            padding: 10px 20px;
+            border-radius: 8px;
+            color: #fff;
+        }
+
+        .top-bar .left {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .top-bar .left .back-button {
+            cursor: pointer;
+            font-size: 1.2rem;
+        }
+
+        .top-bar .left .logo img {
+            width: 40px;
+            height: 40px;
+            border-radius: 5px;
+        }
+
+        .top-bar .left .title {
+            background-color: #fff;
+            color: #000;
+            padding: 5px 15px;
+            border-radius: 15px;
+            border: 2px solid #000;
+            font-weight: bold;
+        }
+
+        .top-bar .middle {
+            display: flex;
+            gap: 20px;
+            padding: 7px 15px;
+            background-color: #fff;
+            border-radius: 15px;
+        }
+
+        .top-bar .middle img {
+            width: 30px;
+            height: 30px;
+            cursor: pointer;
+        }
+
+        .top-bar .right {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .top-bar .right input {
+            padding: 5px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        .content {
+            margin-top: 20px;
+            background-color: #dcdcdc;
+            padding: 30px;
+            border-radius: 10px;
+        }
+
+        .content .title {
+            background-color: #fff;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-size: 1.5rem;
+            margin-bottom: 30px;
+            display: inline-block;
+            border: 2px solid #000;
+        }
+
+        .categories {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .categories button {
+            background-color: #fff;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-size: 1.5rem;
+            margin-bottom: 30px;
+            display: inline-block;
+            border: 2px solid #000;
+        }
+
+        .categories i {
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+        .table-container {
+            background-color: #7a7a7a;
+            padding: 20px;
+            border-radius: 10px;
+            max-height: 400px;
+            overflow-y: scroll;
+        }
+
+        .table-container h2 {
+            font-size: 24px;
+            font-weight: bold;
+            color: black;
+            margin-bottom: 20px;
+        }
+
+        .table-container table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .table-container table th,
+        .table-container table td {
+            padding: 10px;
+            border-bottom: 1px solid black;
+            color: black;
+        }
+
+        .table-container table th {
+            text-align: left;
+        }
+
+        .table-container table td i {
+            margin-right: 10px;
+        }
+
+        .generate-report {
+            background-color: white;
+            border: 2px solid black;
+            border-radius: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            float: right;
+        }
+
+        /* Popup Styling */
+        .popup {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .popup-content {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .popup-buttons button {
+            margin: 10px;
+            padding: 10px 20px;
+            border-radius: 10px;
+            border: 2px solid black;
+            background-color: #fff;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <!-- Top Bar -->
+        <div class="top-bar">
+            <div class="left">
+                <div class="back-button">
+                    <a href="IM1.html">←</a>
+                </div>
+                <div class="logo">
+                    <img src="smartshop logo.png" alt="SmartShop Logo">
+                </div>
+                <div class="title">SmartShop</div>
+            </div>
+            <div class="middle">
+                <a href="IM1.html"><img src="inventoryicon.png" alt="Inventory"></a>
+                <img src="alertsicon.png" alt="Alerts">
+                <img src="usersicon.png" alt="Users">
+                <img src="analyticsicon.png" alt="Analytics">
+            </div>
+            <div class="right">
+                <input type="text" placeholder="Search">
+            </div>
+        </div>
+
+        <!-- Content Section -->
+        <div class="content">
+            <!-- Categories -->
+            <div class="main-screen">
+                <div class="title">INVENTORY</div>
+                <i class="fas fa-sync-alt"></i>
+            </div>
+
+            <!-- Table Container -->
+            <div class="table-container">
+                <h2>Low Stock:</h2>
+                <button class="generate-report">Generate Report</button>
+                <table>
+                    <tr>
+                        <td>
+                            <i class="fas fa-circle" style="color: red;"></i>
+                            Dalda Cooking Oil 1ltr
+                        </td>
+                        <td>In Stock: 3ctn</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <i class="fas fa-circle" style="color: red;"></i>
+                            Banana
+                        </td>
+                        <td>In Stock: 22dz</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <i class="fas fa-circle" style="color: red;"></i>
+                            Daal Channa
+                        </td>
+                        <td>In Stock: 12kg</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <i class="fas fa-circle" style="color: red;"></i>
+                            Olper's Milk 250ml
+                        </td>
+                        <td>In Stock: 4ctn</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <i class="fas fa-circle" style="color: red;"></i>
+                            Nestle Fruita Vitals 1ltr
+                        </td>
+                        <td>In Stock: 3ctn</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <i class="fas fa-circle" style="color: red;"></i>
+                            Jam e Shirin 800ml
+                        </td>
+                        <td>In Stock: 8ctn</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Popup for report generation -->
+    <div class="popup" id="popup">
+        <div class="popup-content">
+            <h3>Report Generated</h3>
+            <div class="popup-buttons">
+                <button onclick="exportPDF()">Export as PDF</button>
+                <button onclick="exportPNG()">Export as PNG</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.querySelector(".generate-report").addEventListener("click", function () {
+            document.getElementById("popup").style.display = "flex";
+        });
+
+        function exportPDF() {
+            alert("Exporting as PDF!");
+        }
+
+        function exportPNG() {
+            alert("Exporting as PNG!");
+        }
+    </script>
+</body>
+
+</html>
